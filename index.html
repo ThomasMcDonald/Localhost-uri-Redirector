@@ -15,7 +15,8 @@
     var urlRedirect = document.getElementById('urlRedirect').value;
     var urlPort = document.getElementById('urlPort').value;
     var referrer = document.referrer;
-
+    console.log(referrer);
+    console.log(splitURL(referrer));
 
     function redirect(){
       var urlRedirect = document.getElementById('urlRedirect').value;
@@ -23,6 +24,10 @@
 
       window.location = "http://" + urlRedirect + ":" + urlPort;
 
+    }
+
+    function splitURL(url){
+      return url.split('?');
     }
   </script>
 
