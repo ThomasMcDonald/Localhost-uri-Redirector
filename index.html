@@ -14,20 +14,21 @@
   <script>
     var urlRedirect = document.getElementById('urlRedirect').value;
     var urlPort = document.getElementById('urlPort').value;
-    var referrer = document.referrer;
-    console.log(referrer);
-    console.log(splitURL(referrer));
+    var variables = document.location.search;
+    console.log(variables);
 
+    redirect();
     function redirect(){
       var urlRedirect = document.getElementById('urlRedirect').value;
       var urlPort = document.getElementById('urlPort').value;
+      var variables = document.location.search;
 
-      window.location = "http://" + urlRedirect + ":" + urlPort;
+      window.location = "http://" + "localhost" + ":" + "8080" + "/" + variables;
 
     }
 
     function splitURL(url){
-      return url.split('?');
+      return url.split(';');
     }
   </script>
 
