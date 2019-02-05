@@ -1,0 +1,29 @@
+<html>
+  <head>
+
+  </head>
+  <body>
+    <form>
+      URL - <input type="text" name="url" value="" id="urlRedirect">
+      PORT - <input type="text" name="port" value="" id="urlPort">
+    </form>
+    <button onclick="redirect()">Redirect</button>
+  </body>
+
+
+  <script>
+    var urlRedirect = document.getElementById('urlRedirect').value;
+    var urlPort = document.getElementById('urlPort').value;
+    var referrer = document.referrer;
+
+
+    function redirect(){
+      var urlRedirect = document.getElementById('urlRedirect').value;
+      var urlPort = document.getElementById('urlPort').value;
+
+      window.location = "http://" + urlRedirect + ":" + urlPort;
+
+    }
+  </script>
+
+</html>
