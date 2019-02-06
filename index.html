@@ -4,8 +4,10 @@
   </head>
   <body>
     <form>
-      URL - <input type="text" name="url" value="" id="urlRedirect">
+      Host - <input type="text" name="url" value="" id="urlRedirect">
+      Path - <input type="text" name="url" value="" id="urlPath">
       PORT - <input type="text" name="port" value="" id="urlPort">
+      <input type="checkbox" name="redirect" value="">
     </form>
     <button onclick="redirect()">Redirect</button>
   </body>
@@ -14,16 +16,18 @@
   <script>
     var urlRedirect = document.getElementById('urlRedirect').value;
     var urlPort = document.getElementById('urlPort').value;
+    var urlPath = document.getElementById('urlPath').value;
     var variables = document.location.search;
     console.log(variables);
 
     redirect();
     function redirect(){
-      var urlRedirect = document.getElementById('urlRedirect').value;
-      var urlPort = document.getElementById('urlPort').value;
+      var urlRedirect = "localhost";
+      var urlPort = "8080";
+      var urlPath = "/oauth"
       var variables = document.location.search;
 
-      window.location = "http://" + "localhost" + ":" + "8080" + "/" + variables;
+      window.location = "http://" + urlRedirect + ":" + urlPort + urlPath + variables;
 
     }
 
