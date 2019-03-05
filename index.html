@@ -1,38 +1,97 @@
 <html>
   <head>
-
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
-    <form>
-      Host - <input type="text" name="url" value="" id="urlRedirect">
-      Path - <input type="text" name="url" value="" id="urlPath">
-      PORT - <input type="text" name="port" value="" id="urlPort">
-      <input type="checkbox" name="redirect" value="">
-    </form>
-    <button onclick="redirect()">Redirect</button>
+    <div class="container">
+      <div class="row">
+        <div class="col s0 m3"></div>
+        <div class="col s12 m6" style="">
+          <span style="text-align:center;">
+            <h1 style="color: rgb(85, 108, 214); font-weight: bolder; font-size: 2em;">localhost URI Redirect</h1>
+          </span>
+           <form class="col s12">
+                 <div class="row">
+                   <div class="input-field col s6">
+                     <input id="urlRedirect" type="text"/>
+                     <label for="urlRedirect">Host Name</label>
+                   </div>
+                   <div class="input-field col s6">
+                     <input id="urlPort" type="text">
+                     <label for="urlPort">Port</label>
+                   </div>
+                 </div>
+                 <div class="row">
+                   <div class="input-field col s6">
+                     <input id="urlPath" type="text">
+                     <label for="urlPath">Path</label>
+                   </div>
+                   <label for="autoRedirect">Auto Redirect</label>
+                   <div class="switch">
+                     <label> Off
+                      <input type="checkbox" id="autoRedirect">
+                      <span class="lever"></span>
+                      On
+                    </label>
+                  </div>
+
+
+                 </div>
+            </form>
+          <button onclick="redirector()" class="btn waves-effect waves-light" type="submit" name="action">Redirect
+            <i class="material-icons right">refresh</i>
+          </button>
+
+        </div>
+        <div class="col s0 m3"></div>
+      </div>
+    </div>
+
   </body>
 
 
-  <script>
-    var urlRedirect = document.getElementById('urlRedirect').value;
-    var urlPort = document.getElementById('urlPort').value;
-    var urlPath = document.getElementById('urlPath').value;
-    var variables = document.location.search;
-    console.log(variables);
 
-    redirect();
-    function redirect(){
-      var urlRedirect = "localhost";
-      var urlPort = "8080";
-      var urlPath = "/oauth"
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <script>
+  window.onload = function(){
+    init();
+  };
+
+
+
+  function init(){
+    if(localStorage.getItem("autoRedirectBool") === "true"){
+      autoRedirector();
+    }
+  }
+    function redirector(){
+      var urlRedirect = document.getElementById('urlRedirect').value;
+      var urlPort = document.getElementById('urlPort').value;
+      var urlPath = document.getElementById('urlPath').value;
+      var autoRedirectBool = document.getElementById('autoRedirect').checked;
+      var variables = document.location.search;
+
+
+      localStorage.setItem("urlRedirect", urlRedirect);
+      localStorage.setItem("urlPort", urlPort);
+      localStorage.setItem("urlPath", urlPath);
+      localStorage.setItem("autoRedirectBool", autoRedirectBool);
+
+      window.location = "http://" + urlRedirect + ":" + urlPort + urlPath + variables;
+    }
+
+    function autoRedirector(){
+      var urlRedirect = localStorage.getItem("urlRedirect");
+      var urlPort = localStorage.getItem("urlPort");
+      var urlPath = localStorage.getItem("urlPath");
+      var autoRedirectBool = localStorage.getItem("autoRedirectBool");
       var variables = document.location.search;
 
       window.location = "http://" + urlRedirect + ":" + urlPort + urlPath + variables;
-
-    }
-
-    function splitURL(url){
-      return url.split(';');
     }
   </script>
 
