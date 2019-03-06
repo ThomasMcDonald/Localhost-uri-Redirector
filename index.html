@@ -108,7 +108,7 @@
        localStorage.setItem("urlPath", urlPath.value);
        localStorage.setItem("autoRedirectBool", autoRedirectBool);
 
-      window.location = "http://" + urlRedirect + ":" + urlPort + urlPath + variables;
+      window.location = "http://" + urlRedirect.value + ":" + urlPort.value + urlPath.value + variables;
     }
 
     function autoRedirector(){
