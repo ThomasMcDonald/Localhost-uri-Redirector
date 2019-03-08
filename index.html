@@ -57,14 +57,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
   <script>
-  window.onload = function(){
-    var redirectTimer;
-    var urlRedirect = document.getElementById('urlRedirect');
-    var urlPort = document.getElementById('urlPort');
-    var urlPath = document.getElementById('urlPath');
-    var autoRedirectBool = document.getElementById('autoRedirect');
-    var variables;
+  var urlRedirect = document.getElementById('urlRedirect');
+  var urlPort = document.getElementById('urlPort');
+  var urlPath = document.getElementById('urlPath');
+  var autoRedirectBool = document.getElementById('autoRedirect');
+  var variables = document.location.search;;
+  var redirectTimer;
+  var timerStopBtn = document.getElementById('timerBtn');
 
+  window.onload = function(){
     init();
   };
 
@@ -74,15 +75,15 @@
     urlRedirect.value = localStorage.getItem("urlRedirect");
     urlPort.value = localStorage.getItem("urlPort");
     urlPath.value = localStorage.getItem("urlPath");
-    autoRedirectBool = document.getElementById('autoRedirect').checked = (localStorage.getItem("autoRedirectBool") == 'true');
+    autoRedirectBool.checked = (localStorage.getItem("autoRedirectBool") == 'true');
 
     // This fixes the materialcss input focus
-    document.getElementById('urlRedirect').focus();
-    document.getElementById('urlPort').focus();
-    document.getElementById('urlPath').focus();
+    urlRedirect.focus();
+    urlPort.focus();
+    urlPath.focus();
 
-    if(document.getElementById('autoRedirect').checked == true){
-        document.getElementById('timerBtn').style.visibility = 'visible'
+    if(autoRedirectBool.checked == true){
+        timerStopBtn.style.visibility = 'visible'
         redirectTimer = setTimeout(function(){
           autoRedirector();
         }, 3000);
@@ -94,25 +95,24 @@
 
   function stopTimer(){
     clearTimeout(redirectTimer);
-    autoRedirectBool = document.getElementById('autoRedirect').checked = false;
-    document.getElementById('timerBtn').style.visibility = 'hidden';
-    localStorage.setItem("autoRedirectBool", autoRedirectBool);
+    autoRedirectBool.checked = false;
+    timerStopBtn.style.visibility = 'hidden';
+    localStorage.setItem("autoRedirectBool", autoRedirectBool.checked);
   }
 
     function redirector(){
-       autoRedirectBool = document.getElementById('autoRedirect').checked;
-       variables = document.location.search;
+       //variables = document.location.search;
 
        localStorage.setItem("urlRedirect", urlRedirect.value);
        localStorage.setItem("urlPort", urlPort.value);
        localStorage.setItem("urlPath", urlPath.value);
-       localStorage.setItem("autoRedirectBool", autoRedirectBool);
+       localStorage.setItem("autoRedirectBool", autoRedirectBool.checked);
 
       window.location = "http://" + urlRedirect.value + ":" + urlPort.value + urlPath.value + variables;
     }
 
     function autoRedirector(){
-      variables = document.location.search;
+      //variables = document.location.search;
 
       window.location = "http://" + urlRedirect.value + ":" + urlPort.value + urlPath.value + variables;
     }
